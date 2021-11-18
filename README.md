@@ -1,4 +1,4 @@
-# BackEndChallengeTest
+# BackEndChallengeTest (Muhammad Rizki Fonna)
 
 Steps to run app:<br>
 1. Synchronizes package by command: "npm update"<br>
