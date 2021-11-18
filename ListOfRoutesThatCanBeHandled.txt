@@ -1,0 +1,16 @@
+Routes than can be handled:
+
+1. /articles
+	GET: see all articles (query string: sort ('asc' or 'dsc'), filter(fill with the string to filter article based on the content))
+	POST: create new article (need to post author, content, and comments)
+2. /articles/:id
+	GET: see article with the corresponding id
+	PUT: edit article with the corresponding id
+	DELETE: delete article with the corresponding id
+3. /articles/:id/comments
+	GET: see comments of article with the corresponding id
+	POST: create new comment to the article with the corresponding id (need to post id and commentsContent)
+4. /articles/:id/comment/:idComments
+	GET: see comment with the corresponding idComments and belong to article with id
+	PUT: edit comment with the corresponding idComments and belong to article with id
+	DELETE: delete comment with the corresponding idComments and belong to article with id

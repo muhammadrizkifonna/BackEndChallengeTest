@@ -14,29 +14,69 @@ router
         filter = req.query.filter;
         if (sort=="asc")
         {
-            const articles = await Articles.aggregate(
-                [
-                    { $sort : { content : 1 }}
-                ]
-            )
+            if (!!filter)
+            {
+                var articles = await Articles.aggregate(
+                    [
+                        // { $addFields: { results:{ $regexMatch: { input: "$content", regex: /Cras/ }}}},
+                        { $match: {content: { $regex: filter, $options : 'i'}} },
+                        { $sort : { content : 1 }}
+                    ]
+                )
+            }
+            else
+            {
+                var articles = await Articles.aggregate(
+                    [
+                        { $sort : { content : 1 }}
+                    ]
+                )
+            }
             console.log(articles);
             var articlesJSON = JSON.stringify(articles);
             res.send(articlesJSON);
         }
         else if (sort=="dsc")
         {
-            const articles = await Articles.aggregate(
-                [
-                  { $sort : { content : -1 } }
-                ]
-            )
+            if (!!filter)
+            {
+                var articles = await Articles.aggregate(
+                    [
+                        // { $addFields: { results:{ $regexMatch: { input: "$content", regex: /Cras/ }}}},
+                        { $match: {content: { $regex: filter, $options : 'i'}} },
+                        { $sort : { content : -1 }}
+                    ]
+                )
+            }
+            else
+            {
+                var articles = await Articles.aggregate(
+                    [
+                        { $sort : { content : -1 }}
+                    ]
+                )
+            }
+            
             console.log(articles);
             var articlesJSON = JSON.stringify(articles);
             res.send(articlesJSON);
         }
         else
         {
-            const articles = await Articles.find()
+            if (!!filter)
+            {
+                var articles = await Articles.aggregate(
+                    [
+                        // { $addFields: { results:{ $regexMatch: { input: "$content", regex: /Cras/ }}}},
+                        { $match: {content: { $regex: filter, $options : 'i'}} },
+                    ]
+                )
+            }
+            else
+            {
+                var articles = await Articles.find()
+            }
+            
             console.log(articles);
             var articlesJSON = JSON.stringify(articles);
             res.send(articlesJSON);
