@@ -44,25 +44,26 @@ router
             
     })
     .post(async (req, res) => {
+        var cmt = req.body.comments;
+        var cmt_res=[]
+        cmt.forEach((cm)=>{
+            cmt_res.push(new Comments({
+                commentsContent: cm.commentsContent,
+                id: cm.id
+            }));
+        });
         const article = new Articles({
             author: req.body.author,
             content: req.body.content,
-            comments: req.body.comments
+            comments: cmt_res
         });
     
         try{
             const saving =  await article.save();
             res.json(saving);
         }catch(err){
-            res.send('Error');
+            res.send('Error'+err);
         }
-    })
-    .put(async (req, res) => {
-        
-        
-    })
-    .delete((req, res) => {
-    
     })
 
 router
@@ -75,10 +76,18 @@ router
     })
     .put( async (req, res)=> {
         try{
+            var cmt = req.body.comments;
+            var cmt_res=[]
+            cmt.forEach((cm)=>{
+                cmt_res.push(new Comments({
+                    commentsContent: cm.commentsContent,
+                    id: cm.id
+                }));
+            });
             const article = await Articles.findById(req.params.id);
             article.author = req.body.author;
             article.content = req.body.content;
-            article.comments = req.body.comments;
+            article.comments = cmt_res;
             const saving = await article.save();
             res.json(saving);  
         }catch(err){
@@ -118,12 +127,12 @@ router
         const articles = await Articles.aggregate([ 
                 { "$match" : { "_id": ObjectId(req.params.idArticles) } },
                 { "$unwind" : "$comments" } ,
-                { "$match" : { "comments.id" : 1 } },
+                { "$match" : { "comments.id" : parseInt(req.params.idComments) } },
                 ] );
         console.log(articles);
         
         articles.forEach(article=> {
-            if (article.comments.id==1)
+            if (article.comments.id==req.params.idComments)
             {
                 var comments = article.comments;
                 var commentsJSON = JSON.stringify(comments);
