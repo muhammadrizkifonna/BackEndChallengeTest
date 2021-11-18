@@ -5,7 +5,9 @@ const mongoose = require('mongoose')
 const url = 'mongodb+srv://root:1234@cluster0.vn2av.mongodb.net/blog?retryWrites=true&w=majority'
 // const url = 'mongodb://localhost/blog'
 const port = 4000
+var cors = require('cors')
 
+app.use(cors())
 mongoose.connect(url, {useNewUrlParser:true})
 const con = mongoose.connection
 
