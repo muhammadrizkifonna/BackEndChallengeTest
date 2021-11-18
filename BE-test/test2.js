@@ -9,7 +9,7 @@
 
  function result(data) {
    // Your Code Here
-   const res=[];
+   var res=[];
    let map_number= new Map();
    // console.log("A");
    for (var i=0;i<data.length;i++)

@@ -64,30 +64,61 @@ const sessions = [
 
 function result(sessions) {
   // Your Code Here
-  var res =[];
-  var session_ids=[];
-  for(var i = 0; i < sessions.length; i++) {
-    var obj = sessions[i];
-    var found=false;
-    for (var j=0; j<session_ids.length;j++)
-    {
-      if (obj[session_id]==session_ids[j])
-      {
-        found=True;
-        break;
-      }
-    }
-    if (!found)
-    {
-      obj_res={
-        
-      }
-    }
-  }
-  return res;
+  let map_sessions= new Map();
+  for (var i=0;i<sessions.length;i++)
+   {
+     // console.log(data[i])
+     if (!map_sessions.has([sessions[i]['session_id'], (sessions[i]['time'])]))
+     {
+      map_sessions.set([sessions[i]['session_id'], (sessions[i]['time'])], [sessions[i]['class']['class_id']]);     
+     }
+     else
+     {
+      map_sessions.set([sessions[i]['session_id'], (sessions[i]['time'])], map_sessions.get([sessions[i]['session_id'], sessions[i]['time']]).push(sessions[i]['class']['class_id']));  
+     }
+   }
+   return map_sessions;
+
+  
 
 
 
 }
+
+
+
+// function result(sessions) {
+//   // Your Code Here
+//   var res =[];
+//   var session_ids=[];
+//   for(var i = 0; i < sessions.length; i++) {
+//     var obj = sessions[i];
+//     var found=false;
+//     for (var j=0; j<session_ids.length;j++)
+//     {
+//       if (obj[session_id]==session_ids[j])
+//       {
+//         found=True;
+//         break;
+//       }
+//     }
+//     if (!found)
+//     {
+//       obj_res={
+        
+//       }
+//     }
+//   }
+//   return res;
+
+
+
+// }
+
+
+
+
+
+
 
 console.log(result(sessions));
