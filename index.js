@@ -3,6 +3,7 @@ const app = express()
 const mongoose = require('mongoose')
 // const url = 'mongodb+srv://root:1234@cluster0.vn2av.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 const url = 'mongodb+srv://root:1234@cluster0.vn2av.mongodb.net/blog?retryWrites=true&w=majority'
+// const url = 'mongodb://localhost/blog'
 const port = 4000
 
 mongoose.connect(url, {useNewUrlParser:true})
@@ -28,7 +29,7 @@ app.use("/articles", articlesRouter);
 
   
 app.listen(port, () => {
-console.log(`Example app listening at http://localhost:${port}`)
+console.log(`app listening at http://localhost:${port}`)
 })
 
 

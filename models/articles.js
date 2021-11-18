@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const Comments = require('../models/comments').schema
 
 
 const articlesSchema = new mongoose.Schema({
@@ -12,10 +13,7 @@ const articlesSchema = new mongoose.Schema({
         required: true
     }
     ,
-    comments: {
-        type: Array,
-        required: false
-    }
+    comments: [Comments]
 }, { collection: 'articles' });
 
 module.exports = mongoose.model('Articles',articlesSchema, 'articles')
